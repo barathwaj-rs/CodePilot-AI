@@ -3,6 +3,7 @@ from services.repository.tree_builder import TreeBuilder
 from services.repository.language_detector import LanguageDetector
 from services.repository.framework_detector import FrameworkDetector
 from services.repository.dependency_parser import DependencyParser
+from services.repository.entry_point_detector import EntryPointDetector
 
 class RepositoryAnalyzer:
 
@@ -24,11 +25,17 @@ class RepositoryAnalyzer:
             files,
         )
 
+        entry_points = EntryPointDetector.detect(
+            repo_path,
+            files,
+        )
+
         analysis = RepositoryAnalysis(
             files=files,
             languages=languages,
             frameworks=frameworks,
             dependencies=dependencies,
+            entry_points=entry_points,
         )
 
         return analysis
