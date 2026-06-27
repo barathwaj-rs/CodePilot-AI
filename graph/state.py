@@ -1,35 +1,27 @@
-from typing import TypedDict, Optional, List, Dict, Any
+from typing import TypedDict
+
+from models.repository_analysis import RepositoryAnalysis
+from models.repository_context import RepositoryContext
+from models.execution_plan import ExecutionPlan
 
 
-class CodePilotState(TypedDict, total=False):
+class CodePilotState(TypedDict):
+    """
+    Shared state used by the LangGraph workflow.
+    """
+
     # User Input
     repo_url: str
-    repo_path: str
     user_task: str
 
-    # Repository Analysis
-    repo_analysis: Dict[str, Any]
+    # Repository
+    repo_analysis: RepositoryAnalysis
+    repository_context: RepositoryContext
 
-    # Code Indexing
-    indexed_files: List[str]
+    # AI Planning
+    execution_plan: ExecutionPlan | None
 
-    # RAG
-    retrieved_context: List[str]
-
-    # Planning
-    plan: List[str]
-
-    # Code Generation
-    generated_code: Dict[str, str]
-
-    # Code Review
-    review_comments: List[str]
-
-    # Testing
-    test_results: Dict[str, Any]
-
-    # Git
-    git_commit_hash: str
-
-    # Conversation History
-    messages: List[Dict[str, str]]
+    # Future
+    generated_code: str | None
+    review_report: str | None
+    final_response: str | None

@@ -1,9 +1,28 @@
 [project]
 name = "codepilot-ai"
 version = "0.1.0"
-description = "Add your description here"
+
+description = "An AI Software Engineering Agent built with LangGraph, RAG, Ollama, and ChromaDB."
+
 readme = "README.md"
+
 requires-python = ">=3.12"
+
+authors = [
+    {name = "Barathwaj R S"}
+]
+
+license = {text = "MIT"}
+
+keywords = [
+    "ai",
+    "langgraph",
+    "rag",
+    "ollama",
+    "chromadb",
+    "software-engineering",
+    "agent",
+]
 dependencies = [
     "chromadb>=1.5.9",
     "gitpython>=3.1.50",
