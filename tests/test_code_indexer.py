@@ -3,7 +3,7 @@ from services.indexing.code_indexer import CodeIndexer
 
 def main():
 
-    indexer = CodeIndexer()
+    indexer = CodeIndexer("CodePilot-AI")
 
     indexer.index_repository(".")
 

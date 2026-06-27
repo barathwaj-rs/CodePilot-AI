@@ -1,5 +1,5 @@
 from langchain_ollama import OllamaEmbeddings
-
+from config.settings import EMBEDDING_MODEL
 
 class EmbeddingGenerator:
     """
@@ -9,7 +9,7 @@ class EmbeddingGenerator:
     def __init__(self):
 
         self.embeddings = OllamaEmbeddings(
-            model="nomic-embed-text",
+            model=EMBEDDING_MODEL,
         )
 
     def embed(self, texts: list[str]):

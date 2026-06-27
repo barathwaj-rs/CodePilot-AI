@@ -1,22 +1,28 @@
 from services.indexing.embedder import EmbeddingGenerator
 from services.indexing.vector_store import VectorStore
 from models.retrieved_chunk import RetrievedChunk
-
+from config.settings import TOP_K_RESULTS
 
 class Retriever:
     """
     Retrieves relevant code chunks.
     """
 
-    def __init__(self):
+    def __init__(
+    self,
+    repository_name: str,
+    ):
 
         self.embedder = EmbeddingGenerator()
-        self.store = VectorStore()
+
+        self.store = VectorStore(
+        repository_name
+        )
 
     def retrieve(
     self,
     query: str,
-    n_results: int = 5,
+    n_results: int = TOP_K_RESULTS,
     ) -> list[RetrievedChunk]:
 
         embedding = self.embedder.embed([query])[0]

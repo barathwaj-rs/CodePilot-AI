@@ -1,17 +1,30 @@
 from chromadb import PersistentClient
-
+from config.settings import (
+    CHROMA_PATH,
+    COLLECTION_PREFIX,
+)
+from pathlib import Path
+from chromadb import PersistentClient
 
 class VectorStore:
     """
     Stores and searches embeddings.
     """
 
-    def __init__(self):
+    def __init__(
+        self,
+        repository_name: str,
+    ):
 
-        self.client = PersistentClient(path="./storage/chroma")
+        self.client = PersistentClient(path=CHROMA_PATH)
+
+        collection_name = (
+        f"{COLLECTION_PREFIX}_"
+        f"{repository_name.lower().replace('-', '_')}"
+        )
 
         self.collection = self.client.get_or_create_collection(
-            name="codepilot"
+        name=collection_name
         )
 
     def add(
@@ -39,3 +52,13 @@ class VectorStore:
         query_embeddings=[query_embedding],
         n_results=n_results,
         )
+    
+    def clear(self):
+        """
+        Remove all vectors from the collection.
+        """
+
+        ids = self.collection.get()["ids"]
+
+        if ids:
+            self.collection.delete(ids=ids)

@@ -3,7 +3,7 @@ from services.indexing.retriever import Retriever
 
 def main():
 
-    retriever = Retriever()
+    retriever = Retriever("CodePilot-AI")
 
     chunks = retriever.retrieve(
         "Where is repository analysis implemented?"

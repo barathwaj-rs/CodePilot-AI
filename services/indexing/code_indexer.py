@@ -3,23 +3,33 @@ from pathlib import Path
 from services.indexing.chunker import CodeChunker
 from services.indexing.embedder import EmbeddingGenerator
 from services.indexing.vector_store import VectorStore
-
+from config.settings import SUPPORTED_EXTENSIONS
 
 class CodeIndexer:
     """
     Builds the vector database for a repository.
     """
 
-    def __init__(self):
+    def __init__(
+    self,
+    repository_name: str,
+    ):
 
         self.chunker = CodeChunker()
+
         self.embedder = EmbeddingGenerator()
-        self.store = VectorStore()
+
+        self.store = VectorStore(
+        repository_name
+        )
 
     def index_repository(
         self,
         repo_path: str,
     ):
+
+        print("Clearing existing collection...")
+        self.store.clear()
 
         root = Path(repo_path)
 
@@ -50,7 +60,7 @@ class CodeIndexer:
 
             if (
                 file.is_file()
-                and file.suffix.lower() in supported_extensions
+                and file.suffix.lower() in SUPPORTED_EXTENSIONS
             ):
 
                 try:
