@@ -20,3 +20,5 @@ class RepositoryAnalysis:
     readme_summary: str = ""
 
     git_info: dict = field(default_factory=dict)
+
+    statistics: dict = field(default_factory=dict)

@@ -2,34 +2,6 @@ import gradio as gr
 
 from controllers.workflow_controller import WorkflowController
 
-def run_workflow():
-
-    result = WorkflowController.run(
-        repo_url="https://github.com/example/project",
-        user_task="Add JWT Authentication",
-    )
-
-    analysis = result["repo_analysis"]
-
-    output = []
-
-    output.append("Repository Analysis")
-    output.append("")
-    output.append(f"Files: {len(analysis.files)}")
-    output.append("")
-
-    output.append("Languages:")
-
-    for language, count in analysis.languages.items():
-        output.append(f"- {language}: {count}")
-
-    return "\n".join(output)
-
-
-import gradio as gr
-
-from controllers.workflow_controller import WorkflowController
-
 
 def run_workflow(repo_url, task):
 
@@ -62,12 +34,35 @@ def run_workflow(repo_url, task):
         else "-"
     )
 
+    readme = (
+    analysis.readme_summary
+    if analysis.readme_summary
+    else "-"
+    )
+
+    git_info = (
+    f"Repository : {analysis.git_info.get('repository', '-')}\n"
+    f"Branch     : {analysis.git_info.get('branch', '-')}\n"
+    f"Author     : {analysis.git_info.get('author', '-')}\n"
+    f"Commit     : {analysis.git_info.get('last_commit', '-')}\n"
+    f"Message    : {analysis.git_info.get('last_message', '-')}\n"
+    f"Remote     : {analysis.git_info.get('remote', '-') or '-'}"
+    )
+
+    statistics = "\n".join(
+    f"{k}: {v}"
+    for k, v in analysis.statistics.items()
+    )
+
     return (
         len(analysis.files),
         languages,
         frameworks,
         dependencies,
         entry_points,
+        readme,
+        git_info,
+        statistics,
     )
 
 
@@ -114,6 +109,26 @@ with gr.Blocks(title="CodePilot AI") as demo:
             lines=8
         )
 
+    with gr.Row():
+
+        readme_box = gr.Textbox(
+            label="README",
+            lines=15
+        )   
+
+    with gr.Row():
+
+        git_box = gr.Textbox(
+            label="Git Information",
+            lines=8
+        )
+
+        statistics = gr.Textbox(
+            label="Repository Statistics",
+            lines=8,
+        )
+        
+
     analyze_btn.click(
         fn=run_workflow,
         inputs=[
@@ -126,6 +141,9 @@ with gr.Blocks(title="CodePilot AI") as demo:
             frameworks,
             dependencies,
             entry_points,
+            readme_box,
+            git_box,
+            statistics
         ],
     )
 

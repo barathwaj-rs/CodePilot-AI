@@ -4,6 +4,9 @@ from services.repository.language_detector import LanguageDetector
 from services.repository.framework_detector import FrameworkDetector
 from services.repository.dependency_parser import DependencyParser
 from services.repository.entry_point_detector import EntryPointDetector
+from services.repository.readme_parser import ReadmeParser
+from services.repository.git_analyzer import GitAnalyzer
+from services.repository.repository_statistics import RepositoryStatistics
 
 class RepositoryAnalyzer:
 
@@ -30,12 +33,21 @@ class RepositoryAnalyzer:
             files,
         )
 
+        readme = ReadmeParser.parse(repo_path)
+
+        git_info = GitAnalyzer.analyze(repo_path)
+
+        statistics = RepositoryStatistics.analyze(files)
+
         analysis = RepositoryAnalysis(
             files=files,
             languages=languages,
             frameworks=frameworks,
             dependencies=dependencies,
             entry_points=entry_points,
+            readme_summary=readme,
+            git_info=git_info,
+            statistics=statistics,
         )
 
         return analysis
