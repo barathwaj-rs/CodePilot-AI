@@ -79,26 +79,7 @@ class CodePilotWorkflow:
             retry_node,
         )
 
-        self.graph.add_node(
-            "writer",
-            writer_node,
-        )
-
-        self.graph.add_node(
-            "git_stage",
-            git_stage_node,
-        )
-
-        self.graph.add_node(
-            "commit_message",
-            commit_message_node,
-        )
-
-        self.graph.add_node(
-            "git_commit",
-            git_commit_node,
-        )
-
+        
         self.graph.add_node(
             "report",
             report_node,
@@ -152,32 +133,13 @@ class CodePilotWorkflow:
             "reviewer",
             review_router,
             {
-                "writer": "writer",
                 "retry": "retry",
                 "report": "report",
             },
         )
 
         # Success path
-        self.graph.add_edge(
-            "writer",
-            "git_stage",
-        )
 
-        self.graph.add_edge(
-            "git_stage",
-            "commit_message",
-        )
-
-        self.graph.add_edge(
-            "commit_message",
-            "git_commit",
-        )
-
-        self.graph.add_edge(
-            "git_commit",
-            "report",
-        )
 
         self.graph.add_edge(
             "report",
