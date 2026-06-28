@@ -38,3 +38,5 @@ class CodePilotState(TypedDict):
     commit_message: str | None
     # Final Response
     final_report: FinalReport | None
+
+    workflow_logs: list[str]

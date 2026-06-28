@@ -1,12 +1,13 @@
 
-from auth import login
+from flask import request, jsonify
+import auth
 
 @app.route('/login', methods=['POST'])
-def handle_login():
-    username = request.form['username']
-    password = request.form['password']
-    token = login(username, password)
+def login_route():
+    username = request.json['username']
+    password = request.json['password']
+    token = auth.login(username, password)
     if token:
-        return {'token': token}
+        return jsonify({'token': token})
     else:
-        return {'error': 'Invalid credentials'}
+        return jsonify({'error': 'Invalid credentials'}), 401

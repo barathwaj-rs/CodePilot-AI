@@ -1,5 +1,5 @@
 from graph.workflow import CodePilotWorkflow
-
+from ui.formatters import format_workflow_logs
 from services.report.report_formatter import ReportFormatter
 from ui.formatters import (
     format_execution_plan,
@@ -34,6 +34,7 @@ def run_codepilot(
             "commit_message": None,
 
             "final_report": None,
+            "workflow_logs": [],
         }
     )
 
@@ -43,5 +44,6 @@ def run_codepilot(
         format_review(state),
         format_git(state),
         ReportFormatter.format(state["final_report"]),
+        format_workflow_logs(state),
         state,
     )

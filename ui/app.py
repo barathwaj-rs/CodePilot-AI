@@ -18,6 +18,7 @@ with gr.Blocks(
         review,
         git,
         report,
+        workflow_logs,
         workflow_state,
         apply_button,
         apply_result,
@@ -35,6 +36,7 @@ with gr.Blocks(
             review,
             git,
             report,
+            workflow_logs,
             workflow_state,
         ],
     )

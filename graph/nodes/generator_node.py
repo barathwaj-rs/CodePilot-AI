@@ -1,6 +1,6 @@
 from graph.state import CodePilotState
 from services.generator.generator import Generator
-
+from services.logger.workflow_logger import WorkflowLogger
 
 def generator_node(
     state: CodePilotState,
@@ -8,6 +8,11 @@ def generator_node(
     """
     Generate code modifications from the execution plan.
     """
+
+    WorkflowLogger.log(
+        state,
+        "⚙️ Generating code..."
+    )
 
     generator = Generator()
 
@@ -17,5 +22,10 @@ def generator_node(
     )
 
     state["generation_result"] = result
+
+    WorkflowLogger.log(
+        state,
+        "✅ Code generation completed."
+    )
 
     return state

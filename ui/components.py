@@ -34,6 +34,7 @@ def build_components():
         review,
         git,
         report,
+        workflow_logs,
     ) = build_dashboard()
 
     apply_button = gr.Button(
@@ -54,6 +55,7 @@ def build_components():
         review,
         git,
         report,
+        workflow_logs,
         workflow_state,
         apply_button,
         apply_result,

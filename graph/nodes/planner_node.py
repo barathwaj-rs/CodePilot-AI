@@ -1,6 +1,6 @@
 from graph.state import CodePilotState
 from services.planner.planner import Planner
-
+from services.logger.workflow_logger import WorkflowLogger
 
 def planner_node(
     state: CodePilotState,
@@ -9,6 +9,11 @@ def planner_node(
     Generate an execution plan using the Planner Agent.
     """
 
+    WorkflowLogger.log(
+        state,
+        "📝 Creating execution plan..."
+    )
+
     planner = Planner()
 
     plan = planner.plan(
@@ -16,5 +21,10 @@ def planner_node(
     )
 
     state["execution_plan"] = plan
+
+    WorkflowLogger.log(
+        state,
+        "✅ Execution plan created."
+    )
 
     return state

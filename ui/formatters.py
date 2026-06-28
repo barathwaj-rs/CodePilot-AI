@@ -114,3 +114,18 @@ def format_git(state):
     )
 
     return "\n".join(output)
+
+
+def format_workflow_logs(
+    state,
+):
+
+    logs = state.get(
+        "workflow_logs",
+        [],
+    )
+
+    if not logs:
+        return "No logs."
+
+    return "\n".join(logs)

@@ -40,10 +40,18 @@ def build_dashboard():
                 label="Final Report",
             )
 
+        with gr.Tab("📜 Workflow"):
+
+            workflow_logs = gr.Textbox(
+                label="Workflow Logs",
+                lines=20,
+            )
+
     return (
         execution,
         generated,
         review,
         git,
         report,
+        workflow_logs,
     )
