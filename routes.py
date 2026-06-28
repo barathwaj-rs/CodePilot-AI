@@ -1,18 +1,15 @@
 
-from flask import request, jsonify
-import auth
+from flask import Flask, request, jsonify
+from auth import login
 
-@app.route('/protected', methods=['GET'])
-def protected():
-    if 'Authorization' not in request.headers:
-        return jsonify({'error': 'Unauthorized'}), 401
-    
-    token = request.headers['Authorization'].split(' ')[1]
-    
-    user_id = auth.verify_token(token)
-    
-    if user_id is None:
-        return jsonify({'error': 'Invalid or expired token'}), 401
-    
-    # Access controlled resources here
-            
+app = Flask(__name__)
+
+@app.route('/login', methods=['POST'])
+def login_route():
+    username = request.json.get('username')
+    password = request.json.get('password')
+    token = login(username, password)
+    return jsonify({'token': token})
+
+if __name__ == '__main__':
+    app.run(debug=True)
