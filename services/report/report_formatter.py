@@ -22,10 +22,18 @@ class ReportFormatter:
         output.append(f"Task   : {report.task}")
         output.append(f"Retries: {report.retries}")
 
+        # ==========================
+        # Summary
+        # ==========================
+
         output.append("")
         output.append("Summary")
         output.append("-" * 60)
         output.append(report.summary or "No summary provided.")
+
+        # ==========================
+        # Generated Files
+        # ==========================
 
         output.append("")
         output.append("Generated Files")
@@ -36,6 +44,25 @@ class ReportFormatter:
                 output.append(f"✓ {file}")
         else:
             output.append("None")
+
+        # ==========================
+        # Git Information
+        # ==========================
+
+        output.append("")
+        output.append("Git")
+        output.append("-" * 60)
+
+        output.append(f"Branch : {report.git_branch}")
+
+        if report.git_commit:
+            output.append(f"Commit : {report.git_commit[:8]}")
+
+        output.append(f"Message: {report.commit_message}")
+
+        # ==========================
+        # Remaining Issues
+        # ==========================
 
         output.append("")
         output.append("Remaining Issues")

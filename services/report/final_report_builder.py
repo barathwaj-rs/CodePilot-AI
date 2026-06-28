@@ -19,4 +19,7 @@ class FinalReportBuilder:
                 for file in generation.files
             ],
             issues=review.issues,
+            git_branch=state["git_branch"] or "",
+            git_commit=state["git_commit"] or "",
+            commit_message=state["commit_message"] or "",
         )

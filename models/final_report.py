@@ -6,7 +6,7 @@ from models.review_result import ReviewIssue
 @dataclass
 class FinalReport:
     """
-    Final workflow result returned to the user.
+    Final execution report produced by CodePilot AI.
     """
 
     success: bool
@@ -20,3 +20,10 @@ class FinalReport:
     generated_files: list[str] = field(default_factory=list)
 
     issues: list[ReviewIssue] = field(default_factory=list)
+
+    # Git Information
+    git_branch: str = ""
+
+    git_commit: str = ""
+
+    commit_message: str = ""
