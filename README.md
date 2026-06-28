@@ -1,145 +1,155 @@
-# 🚀 CodePilot AI
+# 🤖 CodePilot AI
 
-> **An AI Software Engineering Agent built with LangGraph, RAG, Ollama, and ChromaDB.**
+> **An AI Software Engineering Agent built with LangGraph, Ollama, RAG, ChromaDB, and Gradio.**
 
-CodePilot AI is an agentic software engineering assistant designed to understand, analyze, and modify software repositories using Large Language Models (LLMs). Instead of working with isolated code snippets, it builds a semantic understanding of an entire codebase using Retrieval-Augmented Generation (RAG), enabling repository-level reasoning and intelligent code assistance.
+CodePilot AI is an autonomous AI software engineering assistant that understands an existing codebase, plans implementations, generates code, reviews AI-generated changes, and safely applies them through Git automation.
 
-The long-term vision of CodePilot AI is to provide an end-to-end AI software engineering workflow that can:
-
-* Analyze repositories
-* Understand project architecture
-* Plan implementation strategies
-* Generate code changes
-* Review generated code
-* Assist developers throughout the software development lifecycle
-
-> **Project Status:** 🚧 Active Development (v0.5)
+Instead of generating isolated code snippets, CodePilot AI performs **repository-level reasoning** using Retrieval-Augmented Generation (RAG), enabling it to understand project structure and generate context-aware code modifications.
 
 ---
 
 # ✨ Features
 
-## Repository Intelligence
+## 🧠 Repository Intelligence
 
-* 📁 Repository tree analysis
-* 🌐 Programming language detection
-* 🏗️ Framework detection
-* 📦 Dependency analysis
-* 🚪 Entry point detection
-* 📖 README parsing
-* 🌿 Git repository analysis
-* 📊 Repository statistics
-
----
-
-## Retrieval-Augmented Generation (RAG)
-
-* ✂️ Intelligent code chunking
-* 🧠 Local embedding generation
-* 🗂️ ChromaDB vector storage
-* 🔍 Semantic code retrieval
-* 🧩 Repository context building
-* 📚 Repository-specific vector collections
+* 📁 Repository Analysis
+* 🌿 Git Repository Detection
+* 📦 Dependency Detection
+* 🏗️ Framework Detection
+* 📖 README Parsing
+* 📊 Repository Statistics
+* 🧭 Entry Point Detection
 
 ---
 
-## AI Workflow
+## 🔍 Retrieval-Augmented Generation (RAG)
 
-* 🔄 LangGraph workflow orchestration
-* 🧱 Typed workflow state
-* 🗃️ Repository context management
-* 📋 Execution planning (In Progress)
+* Intelligent Code Chunking
+* ChromaDB Vector Store
+* Ollama Embeddings
+* Semantic Code Retrieval
+* Repository Context Building
+* Context-Aware Prompt Construction
 
 ---
 
-## Software Engineering
+## 🤖 AI Software Engineering Workflow
 
-* 🧩 Modular architecture
-* ⚙️ Centralized configuration
-* 🧪 Unit testing
-* 📝 Structured models
-* 🔌 Extensible service design
+* Repository Analysis
+* Codebase Indexing
+* Semantic Retrieval
+* Execution Planning
+* AI Code Generation
+* AI Code Review
+* Automatic Retry Loop
+* Human Approval
+* Safe Code Application
+
+---
+
+## 🌿 Git Automation
+
+* Git Repository Detection
+* Branch Detection
+* Automatic File Writing
+* Git Stage
+* AI Commit Message Generation
+* Automatic Git Commit
+
+---
+
+## 🖥️ Interactive Dashboard
+
+* 📋 Execution Plan
+* 💻 Generated Files
+* 🔍 AI Review
+* 🌿 Git Information
+* 📄 Final Report
+* 📜 Workflow Logs
 
 ---
 
 # 🛠️ Tech Stack
 
-| Category        | Technology        |
-| --------------- | ----------------- |
-| Language        | Python            |
-| Workflow        | LangGraph         |
-| LLM             | Ollama            |
-| Embeddings      | Ollama Embeddings |
-| RAG Framework   | LangChain         |
-| Vector Database | ChromaDB          |
-| UI              | Gradio            |
-| Git Integration | GitPython         |
-| Configuration   | python-dotenv     |
-| Testing         | Python Unit Tests |
+| Category        | Technology  |
+| --------------- | ----------- |
+| Language        | Python      |
+| Workflow        | LangGraph   |
+| LLM             | Ollama      |
+| Embeddings      | Nomic Embed |
+| RAG             | LangChain   |
+| Vector Database | ChromaDB    |
+| UI              | Gradio      |
+| Git             | GitPython   |
+| Data Models     | Pydantic    |
+| Testing         | Pytest      |
 
+---
 
 # 🏗️ System Architecture
 
-CodePilot AI is organized into modular layers to separate responsibilities and make the system easy to extend.
-
 ```text
-                        User
-                          │
-                          ▼
-                    Gradio Interface
-                          │
-                          ▼
-                 Workflow Controller
-                          │
-                          ▼
-                     LangGraph Engine
-                          │
-      ┌───────────────────┼───────────────────┐
-      ▼                   ▼                   ▼
- Repository Analyzer   Context Builder    Future AI Agents
-      │                   │                   │
-      ▼                   ▼                   ▼
-Repository Analysis  Repository Context  Planner / Generator / Reviewer
-                          │
-                          ▼
-                    Final AI Response
+                     User
+                       │
+                       ▼
+                Gradio Dashboard
+                       │
+                       ▼
+              LangGraph Workflow
+                       │
+ ┌──────────────┬──────────────┬──────────────┐
+ ▼              ▼              ▼              ▼
+Analyzer     Retriever      Planner      Generator
+                                         │
+                                         ▼
+                                   Reviewer
+                                         │
+                                         ▼
+                                 Final Report
+                                         │
+                                 Human Approval
+                                         │
+                                         ▼
+                                   Apply Changes
+                                         │
+              ┌──────────────────────────┴─────────────────────────┐
+              ▼                                                    ▼
+         File Writer                                         Git Automation
+                                                             │
+                                                   Stage → Commit Message → Commit
 ```
 
 ---
 
-# 🧠 AI Workflow
-
-The overall execution flow of CodePilot AI is:
+# 🔄 Workflow
 
 ```text
 User Task
-    │
-    ▼
-Clone Repository
-    │
-    ▼
+      │
+      ▼
 Repository Analysis
-    │
-    ▼
+      ▼
 Repository Indexing
-    │
-    ▼
+      ▼
 Semantic Retrieval (RAG)
-    │
-    ▼
-Context Building
-    │
-    ▼
-Planner (Upcoming)
-    │
-    ▼
-Generator (Upcoming)
-    │
-    ▼
-Reviewer (Upcoming)
-    │
-    ▼
-Final Response
+      ▼
+Execution Planning
+      ▼
+Code Generation
+      ▼
+AI Code Review
+      │
+      ├── Approved
+      │        ▼
+      │   Final Report
+      │        ▼
+      │ Human Approval
+      │        ▼
+      │ Apply Changes
+      │        ▼
+      │ Git Commit
+      │
+      └── Retry (up to 3 attempts)
 ```
 
 ---
@@ -149,165 +159,128 @@ Final Response
 ```text
 CodePilot-AI/
 │
-├── config/             # Configuration and logging
-├── controllers/        # Application controllers
-├── docs/               # Project documentation
-├── graph/              # LangGraph workflow
-├── models/             # Shared data models
-├── prompts/            # Prompt templates
-├── services/
-│   ├── indexing/       # RAG indexing pipeline
-│   ├── planner/        # Planning agent
-│   ├── rag/            # Context builder
-│   ├── repository/     # Repository intelligence
-│   ├── generator/      # Code generation agent (planned)
-│   └── reviewer/       # Code review agent (planned)
+├── config/
+├── graph/
+│   ├── nodes/
+│   ├── router.py
+│   ├── state.py
+│   └── workflow.py
 │
-├── storage/            # Chroma database & repositories
-├── tests/              # Unit tests
-├── main.py
+├── models/
+├── services/
+│   ├── generator/
+│   ├── planner/
+│   ├── repository/
+│   ├── reviewer/
+│   ├── git/
+│   ├── indexing/
+│   ├── report/
+│   └── writer/
+│
+├── ui/
+├── tests/
+├── storage/
+├── pyproject.toml
 └── README.md
 ```
 
 ---
 
-# ⚙️ Installation
+# 🚀 Installation
 
-## Clone the repository
+Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/barathwaj-rs/CodePilot-AI.git
+
 cd CodePilot-AI
 ```
 
-## Install dependencies
+Install dependencies
 
 ```bash
 uv sync
 ```
 
-## Configure environment
-
-Create a `.env` file.
-
-```env
-OLLAMA_BASE_URL=http://localhost:11434
-OLLAMA_MODEL=qwen3:latest
-```
-
-## Start Ollama
+Start Ollama
 
 ```bash
 ollama serve
 ```
 
-Pull the model if needed:
+Pull the required models
 
 ```bash
 ollama pull qwen3:latest
+ollama pull nomic-embed-text
 ```
 
----
-
-# 🚀 Run
-
-Launch the Gradio interface.
+Launch CodePilot AI
 
 ```bash
-uv run main.py
+uv run python -m ui.app
 ```
-
-The application will be available at:
-
-```
-http://127.0.0.1:7860
-```
-
-
-# 🗺️ Development Roadmap
-
-CodePilot AI is being developed in multiple phases.
-
-| Version  | Status         | Features                               |
-| -------- | -------------- | -------------------------------------- |
-| **v0.1** | ✅ Completed    | Project Foundation, LangGraph Workflow |
-| **v0.2** | ✅ Completed    | Repository Analysis Engine             |
-| **v0.3** | ✅ Completed    | RAG Engine & Semantic Code Search      |
-| **v0.4** | ✅ Completed    | Infrastructure Refactoring             |
-| **v0.5** | ✅ Completed    | Documentation & Project Architecture   |
-| **v0.6** | 🚧 In Progress | Planner Agent                          |
-| **v0.7** | ⏳ Planned      | Generator Agent                        |
-| **v0.8** | ⏳ Planned      | Reviewer Agent                         |
-| **v0.9** | ⏳ Planned      | Git Integration                        |
-| **v1.0** | 🎯 Goal        | Complete AI Software Engineering Agent |
 
 ---
 
-# 🚀 Future Features
+# 🖥️ Dashboard
 
-The following features are planned for future releases.
+The Gradio dashboard provides:
 
-### AI Agents
+* Execution Plan
+* Generated Files
+* AI Review
+* Git Information
+* Final Report
+* Workflow Logs
 
-* Planner Agent
-* Generator Agent
-* Reviewer Agent
-* Test Generation Agent
-* Documentation Generation Agent
+> *(Add screenshots here after uploading them to the repository.)*
 
-### Repository Intelligence
+---
 
-* Multi-language repository support
-* Incremental indexing
-* Repository caching
-* Large repository optimization
+# 📈 Project Status
 
-### AI Capabilities
+| Module              | Status |
+| ------------------- | ------ |
+| Repository Analysis | ✅      |
+| RAG Pipeline        | ✅      |
+| Planner             | ✅      |
+| Generator           | ✅      |
+| Reviewer            | ✅      |
+| Retry Workflow      | ✅      |
+| Writer              | ✅      |
+| Git Integration     | ✅      |
+| Dashboard           | ✅      |
+| Workflow Logs       | ✅      |
 
-* Multi-LLM support
-* Conversation memory
-* Streaming responses
-* Tool calling
-* Function calling
+---
 
-### Developer Experience
+# 🚀 Roadmap
 
-* VS Code Extension
-* FastAPI Backend
+## Version 1.1
+
+* Side-by-side Diff Viewer
+* Apply Selected Files
+* Automatic Formatting
+* Linting
+* Test Execution
+
+## Version 2.0
+
+* Pull Request Creation
 * Docker Support
-* GitHub Pull Request Generation
+* VS Code Extension
+* Multi-Agent Collaboration
+* Multi-LLM Support
 * GitHub Actions Integration
-
----
-
-# 📈 Current Progress
-
-```text
-Foundation                     ██████████ 100%
-Repository Intelligence        ██████████ 100%
-RAG Engine                     ██████████ 100%
-Documentation                  █████████░  90%
-
-Planner                        ░░░░░░░░░░   0%
-Generator                      ░░░░░░░░░░   0%
-Reviewer                       ░░░░░░░░░░   0%
-Git Integration                ░░░░░░░░░░   0%
-```
 
 ---
 
 # 🤝 Contributing
 
-Contributions are welcome!
+Contributions, suggestions, and feature requests are welcome.
 
-If you'd like to contribute:
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Commit your changes.
-4. Open a Pull Request.
-
-Please ensure all tests pass before submitting changes.
+Feel free to fork the repository and submit a Pull Request.
 
 ---
 
@@ -315,4 +288,12 @@ Please ensure all tests pass before submitting changes.
 
 This project is licensed under the MIT License.
 
-See the `LICENSE` file for more information.
+---
+
+# 👨‍💻 Author
+
+**Barathwaj R S**
+
+B.Tech CSE (AI & DS)
+
+SASTRA Deemed University
