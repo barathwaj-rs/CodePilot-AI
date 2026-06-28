@@ -2,11 +2,15 @@
 import jwt
 from datetime import datetime, timedelta
 
-def generate_token(username):
-    payload = {"username": username, "exp": (datetime.utcnow() + timedelta(hours=1)).isoformat()}
-    return jwt.encode(payload, "secret_key", algorithm="HS256")
+SECRET_KEY = 'your_secret_key_here'  # Replace with a secure secret key
 
-def login(username: str, password: str) -> str:
-    if not authenticate_user(username, password):  # Replace with your authentication logic
-        raise Exception("Invalid credentials")
-    return generate_token(username)
+def generate_token(username):
+    payload = {'username': username, 'exp': datetime.utcnow() + timedelta(days=30)}
+    token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+    return token.decode('utf-8')
+
+def login(username, password):
+    if username == 'admin' and password == 'your_password_here':
+        return generate_token(username)
+    else:
+        return None
