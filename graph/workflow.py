@@ -12,9 +12,14 @@ from graph.nodes.generator_node import generator_node
 from graph.nodes.reviewer_node import reviewer_node
 from graph.nodes.retry_node import retry_node
 from graph.nodes.writer_node import writer_node
-from graph.router import review_router
 from graph.nodes.report_node import report_node
+
 from graph.nodes.git_node import git_node
+from graph.nodes.git_stage_node import git_stage_node
+from graph.nodes.commit_message_node import commit_message_node
+from graph.nodes.git_commit_node import git_commit_node
+
+from graph.router import review_router
 
 
 class CodePilotWorkflow:
@@ -30,10 +35,18 @@ class CodePilotWorkflow:
 
     def build(self):
 
+        # ==========================
         # Nodes
+        # ==========================
+
         self.graph.add_node(
             "analyzer",
             analyzer_node,
+        )
+
+        self.graph.add_node(
+            "git",
+            git_node,
         )
 
         self.graph.add_node(
@@ -62,13 +75,28 @@ class CodePilotWorkflow:
         )
 
         self.graph.add_node(
+            "retry",
+            retry_node,
+        )
+
+        self.graph.add_node(
             "writer",
             writer_node,
         )
 
         self.graph.add_node(
-            "retry",
-            retry_node,
+            "git_stage",
+            git_stage_node,
+        )
+
+        self.graph.add_node(
+            "commit_message",
+            commit_message_node,
+        )
+
+        self.graph.add_node(
+            "git_commit",
+            git_commit_node,
         )
 
         self.graph.add_node(
@@ -76,12 +104,10 @@ class CodePilotWorkflow:
             report_node,
         )
 
-        self.graph.add_node(
-            "git",
-            git_node,
-        )
-
+        # ==========================
         # Flow
+        # ==========================
+
         self.graph.add_edge(
             START,
             "analyzer",
@@ -122,7 +148,6 @@ class CodePilotWorkflow:
             "generator",
         )
 
-
         self.graph.add_conditional_edges(
             "reviewer",
             review_router,
@@ -133,8 +158,24 @@ class CodePilotWorkflow:
             },
         )
 
+        # Success path
         self.graph.add_edge(
             "writer",
+            "git_stage",
+        )
+
+        self.graph.add_edge(
+            "git_stage",
+            "commit_message",
+        )
+
+        self.graph.add_edge(
+            "commit_message",
+            "git_commit",
+        )
+
+        self.graph.add_edge(
+            "git_commit",
             "report",
         )
 

@@ -35,6 +35,6 @@ class CodePilotState(TypedDict):
     # Git
     git_branch: str | None
     git_commit: str | None
-    
+    commit_message: str | None
     # Final Response
     final_report: FinalReport | None

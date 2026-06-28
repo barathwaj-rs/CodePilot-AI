@@ -164,3 +164,34 @@ class GitService:
         )
 
         repo.git.add(A=True)
+
+
+    @staticmethod
+    def commit(
+        repository_path: str,
+        message: str,
+    ) -> str:
+        """
+        Creates a commit and returns its hash.
+        """
+
+        repo = GitService.get_repo(
+            repository_path,
+        )
+
+        commit = repo.index.commit(
+            message,
+        )
+
+        return commit.hexsha
+    
+    @staticmethod
+    def latest_commit(
+        repository_path: str,
+    ) -> str:
+
+        repo = GitService.get_repo(
+            repository_path,
+        )
+
+        return repo.head.commit.hexsha
