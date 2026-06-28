@@ -14,6 +14,7 @@ from graph.nodes.retry_node import retry_node
 from graph.nodes.writer_node import writer_node
 from graph.router import review_router
 from graph.nodes.report_node import report_node
+from graph.nodes.git_node import git_node
 
 
 class CodePilotWorkflow:
@@ -75,6 +76,11 @@ class CodePilotWorkflow:
             report_node,
         )
 
+        self.graph.add_node(
+            "git",
+            git_node,
+        )
+
         # Flow
         self.graph.add_edge(
             START,
@@ -83,6 +89,11 @@ class CodePilotWorkflow:
 
         self.graph.add_edge(
             "analyzer",
+            "git",
+        )
+
+        self.graph.add_edge(
+            "git",
             "indexer",
         )
 

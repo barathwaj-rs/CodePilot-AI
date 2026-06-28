@@ -2,6 +2,7 @@ from pathlib import Path
 
 from git import Repo
 from git.exc import InvalidGitRepositoryError
+import re
 
 
 class GitService:
@@ -123,3 +124,43 @@ class GitService:
         return not repo.is_dirty(
             untracked_files=True,
         )
+    
+    @staticmethod
+    def create_feature_branch(
+        repository_path: str,
+        task: str,
+    ) -> str:
+
+        slug = task.lower()
+
+        slug = re.sub(
+            r"[^a-z0-9]+",
+            "-",
+            slug,
+        ).strip("-")
+
+        branch = f"codepilot/{slug}"
+
+        GitService.create_branch(
+            repository_path,
+            branch,
+        )
+
+        GitService.checkout_branch(
+            repository_path,
+            branch,
+        )
+
+        return branch
+    
+
+    @staticmethod
+    def stage_all(
+        repository_path: str,
+    ) -> None:
+
+        repo = GitService.get_repo(
+            repository_path,
+        )
+
+        repo.git.add(A=True)

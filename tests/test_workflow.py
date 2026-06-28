@@ -19,6 +19,8 @@ def main():
             "generation_result": None,
             "review_result": None,
             "final_response": None,
+            "git_branch": None,
+            "git_commit": None,
         }
     )
 

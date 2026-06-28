@@ -1,9 +1,10 @@
 
-def handle_login(request):
-    username = request['username']
-    password = request['password']
-    if 'login' in username and 'password' in password:
-        result = login(username, password)
-        return {'result': result}
+import auth
+
+def login_user(username, password):
+    # your existing authentication logic here
+    if authenticated:
+        token = auth.generate_token(username)
+        return {'token': token}
     else:
-        return {'result': ''}
+        return {'error': 'Invalid credentials'}, 401
