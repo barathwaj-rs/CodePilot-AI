@@ -3,6 +3,9 @@ from typing import TypedDict
 from models.repository_analysis import RepositoryAnalysis
 from models.repository_context import RepositoryContext
 from models.execution_plan import ExecutionPlan
+from models.generation_result import GenerationResult
+from models.review_result import ReviewResult
+from models.final_report import FinalReport
 
 
 class CodePilotState(TypedDict):
@@ -15,13 +18,20 @@ class CodePilotState(TypedDict):
     user_task: str
 
     # Repository
-    repo_analysis: RepositoryAnalysis
-    repository_context: RepositoryContext
+    repo_analysis: RepositoryAnalysis | None
+    repository_context: RepositoryContext | None
 
     # AI Planning
     execution_plan: ExecutionPlan | None
 
-    # Future
-    generated_code: str | None
-    review_report: str | None
-    final_response: str | None
+    # AI Generation
+    generation_result: GenerationResult | None
+
+    # AI Review
+    review_result: ReviewResult | None
+
+    retry_count: int
+    
+
+    # Final Response
+    final_report: FinalReport | None

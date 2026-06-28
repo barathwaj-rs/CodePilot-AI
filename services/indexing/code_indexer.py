@@ -33,10 +33,6 @@ class CodeIndexer:
 
         root = Path(repo_path)
 
-        supported_extensions = {
-            ".py",
-            ".md",
-        }
 
         documents = []
         metadatas = []

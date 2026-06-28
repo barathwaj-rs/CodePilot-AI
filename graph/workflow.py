@@ -1,37 +1,135 @@
-from langgraph.graph import StateGraph, START, END
+from langgraph.graph import END
+from langgraph.graph import START
+from langgraph.graph import StateGraph
 
 from graph.state import CodePilotState
 
-from graph.nodes.clone_repo import clone_repo
-from graph.nodes.repository_analyzer import repository_analyzer
-from graph.nodes.code_indexer import code_indexer
-from graph.nodes.planner import planner
-from graph.nodes.generator import generator
-from graph.nodes.reviewer import reviewer
-from graph.nodes.test_runner import test_runner
+from graph.nodes.analyzer_node import analyzer_node
+from graph.nodes.indexer_node import indexer_node
+from graph.nodes.retriever_node import retriever_node
+from graph.nodes.planner_node import planner_node
+from graph.nodes.generator_node import generator_node
+from graph.nodes.reviewer_node import reviewer_node
+from graph.nodes.retry_node import retry_node
+from graph.nodes.writer_node import writer_node
+from graph.router import review_router
+from graph.nodes.report_node import report_node
 
 
-# Create the graph
-builder = StateGraph(CodePilotState)
+class CodePilotWorkflow:
+    """
+    LangGraph workflow for CodePilot AI.
+    """
 
-# Add nodes
-builder.add_node("clone_repo", clone_repo)
-builder.add_node("repository_analyzer", repository_analyzer)
-builder.add_node("code_indexer", code_indexer)
-builder.add_node("planner", planner)
-builder.add_node("generator", generator)
-builder.add_node("reviewer", reviewer)
-builder.add_node("test_runner", test_runner)
+    def __init__(self):
 
-# Connect nodes
-builder.add_edge(START, "clone_repo")
-builder.add_edge("clone_repo", "repository_analyzer")
-builder.add_edge("repository_analyzer", "code_indexer")
-builder.add_edge("code_indexer", "planner")
-builder.add_edge("planner", "generator")
-builder.add_edge("generator", "reviewer")
-builder.add_edge("reviewer", "test_runner")
-builder.add_edge("test_runner", END)
+        self.graph = StateGraph(
+            CodePilotState,
+        )
 
-# Compile graph
-workflow = builder.compile()
+    def build(self):
+
+        # Nodes
+        self.graph.add_node(
+            "analyzer",
+            analyzer_node,
+        )
+
+        self.graph.add_node(
+            "indexer",
+            indexer_node,
+        )
+
+        self.graph.add_node(
+            "retriever",
+            retriever_node,
+        )
+
+        self.graph.add_node(
+            "planner",
+            planner_node,
+        )
+
+        self.graph.add_node(
+            "generator",
+            generator_node,
+        )
+
+        self.graph.add_node(
+            "reviewer",
+            reviewer_node,
+        )
+
+        self.graph.add_node(
+            "writer",
+            writer_node,
+        )
+
+        self.graph.add_node(
+            "retry",
+            retry_node,
+        )
+
+        self.graph.add_node(
+            "report",
+            report_node,
+        )
+
+        # Flow
+        self.graph.add_edge(
+            START,
+            "analyzer",
+        )
+
+        self.graph.add_edge(
+            "analyzer",
+            "indexer",
+        )
+
+        self.graph.add_edge(
+            "indexer",
+            "retriever",
+        )
+
+        self.graph.add_edge(
+            "retriever",
+            "planner",
+        )
+
+        self.graph.add_edge(
+            "planner",
+            "generator",
+        )
+
+        self.graph.add_edge(
+            "generator",
+            "reviewer",
+        )
+
+        self.graph.add_edge(
+            "retry",
+            "generator",
+        )
+
+
+        self.graph.add_conditional_edges(
+            "reviewer",
+            review_router,
+            {
+                "writer": "writer",
+                "retry": "retry",
+                "report": "report",
+            },
+        )
+
+        self.graph.add_edge(
+            "writer",
+            "report",
+        )
+
+        self.graph.add_edge(
+            "report",
+            END,
+        )
+
+        return self.graph.compile()

@@ -4,8 +4,11 @@ from dataclasses import dataclass
 @dataclass
 class PlanStep:
     """
-    One implementation step.
+    Represents a single implementation step.
     """
 
     number: int
+
+    title: str
+
     description: str
